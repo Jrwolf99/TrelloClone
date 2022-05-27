@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./globalstyles/reset.css";
-import "./globalstyles/fonts.css";
+import "./globalstyles/index.css";
 
 import { AuthContextProvider } from "./context/AuthContext";
 import { BrowserRouter } from "react-router-dom";

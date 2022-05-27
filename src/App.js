@@ -4,13 +4,14 @@ import styled from "styled-components";
 import Navbar from "./components/Navbar";
 
 import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 const StyledApp = styled.div`
   height: 100vh;
+  overflow: hidden;
   background: linear-gradient(
     45deg,
     #405de6,
