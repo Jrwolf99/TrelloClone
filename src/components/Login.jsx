@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styled from "styled-components";
 import { useLogin } from '../hooks/Firebase/useLogin';
 
-
 const StyledForm = styled.form`
 
     max-width: 360px;
@@ -39,7 +38,8 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        login(email, password)
+        login(email, password);
+
     }
 
     return (

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { projectAuth } from "../../firebase/config"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useAuthContext } from "../useAuthContext";
 
 export const useSignup = () => {
@@ -9,12 +10,17 @@ export const useSignup = () => {
   const { dispatch } = useAuthContext();
 
   const signup = async (email, password, displayName) => {
+
+
+
+    console.log("displayName:", displayName);
     setError(null);
     setIsPending(true);
 
     try {
       //sign the user up
-      const res = await projectAuth.createUserWithEmailAndPassword(
+      const res = await createUserWithEmailAndPassword(
+        projectAuth,
         email,
         password
       );
@@ -24,7 +30,7 @@ export const useSignup = () => {
       }
 
       //add display name to user
-      await res.user.updateProfile({ displayName });
+      await updateProfile(res.user, { displayName });
 
       //dispatch login action
       dispatch({ type: "LOGIN", payload: res.user });

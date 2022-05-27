@@ -1,3 +1,4 @@
+import { collection } from "firebase/firestore";
 import { useReducer, useEffect, useState } from "react";
 import { projectFirestore, timestamp } from "../../firebase/config";
 
@@ -32,7 +33,7 @@ export const useFirestore = (collection) => {
   const [isCancelled, setIsCancelled] = useState(false);
 
   //collection ref
-  const ref = projectFirestore.collection(collection);
+  const ref = collection(projectFirestore, collection);
 
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {

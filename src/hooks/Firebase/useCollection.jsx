@@ -1,3 +1,4 @@
+import { collection, onSnapshot, where } from "firebase/firestore";
 import { useEffect, useState, useRef } from "react";
 import { projectFirestore } from "../../firebase/config";
 
@@ -9,13 +10,13 @@ export const useCollection = (collection, _query) => {
     const query = useRef(_query).current;
 
     useEffect(() => {
-        let ref = projectFirestore.collection(collection);
+        let ref = collection(projectFirestore, collection);
 
         if (query) {
-            ref = ref.where(...query);
+            ref = query(ref, where(...query));
         }
 
-        const unsub = ref.onSnapshot(
+        const unsub = onSnapshot(ref,
             (snapshot) => {
                 let results = [];
                 snapshot.docs.forEach((doc) => {

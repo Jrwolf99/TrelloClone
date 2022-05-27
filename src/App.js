@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
+
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 const StyledApp = styled.div`
   height: 100vh;
@@ -18,10 +23,24 @@ const StyledApp = styled.div`
 `;
 
 export default function App() {
+  const { user, authIsReady } = useAuthContext();
   return (
-    <StyledApp>
-      <Navbar />
-      <Outlet />
-    </StyledApp>
+    authIsReady && (
+      <StyledApp>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={user ? <Home /> : <Navigate to="login" />} />
+          <Route
+            path="login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
+          <Route
+            path="signup"
+            element={user ? <Navigate to="/" /> : <Signup />}
+          />
+          <Route path="*" element={user ? <Navigate to="/" /> : <Login />} />
+        </Routes>
+      </StyledApp>
+    )
   );
 }

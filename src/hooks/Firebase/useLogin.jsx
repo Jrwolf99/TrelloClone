@@ -1,3 +1,4 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { projectAuth } from "../../firebase/config"
 import { useAuthContext } from "../useAuthContext";
@@ -15,7 +16,7 @@ export const useLogin = () => {
 
         //log the user in
         try {
-            const res = await projectAuth.signInWithEmailAndPassword(email, password);
+            const res = await signInWithEmailAndPassword(projectAuth, email, password);
             dispatch({ type: "LOGIN", payload: res.user });
 
             if (!isCancelled) {
