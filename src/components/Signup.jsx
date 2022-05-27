@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useSignup } from '../hooks/Firebase/useSignup';
 
 
+
 const StyledForm = styled.form`
 
     max-width: 360px;
@@ -14,6 +15,10 @@ const StyledForm = styled.form`
 
     &>h2 {
         color: white;
+    }
+    &>p {
+        color: #580000;
+        font-size: .8rem;
     }
 
     &> label {
@@ -27,9 +32,16 @@ const StyledForm = styled.form`
     width: 100%;
      }
 
+     &>button {
+         color: white;
+         background: #ffffff3e;
+         padding: .3em 1em;
+         width: 63%;
+         border-radius: 3px;
+         margin-bottom: 1rem ;
+     }
+
 `;
-
-
 
 export default function Signup() {
 
@@ -76,9 +88,8 @@ export default function Signup() {
                 />
             </label>
 
-
-            {(!isPending) && <button className='btn'>Submit</button>}
-            {(isPending) && <button className='btn' disabled>Loading...</button>}
+            {(!isPending) && <button>Submit</button>}
+            {(isPending) && <button disabled>Loading...</button>}
             {error && <p>{error}</p>}
 
         </StyledForm>

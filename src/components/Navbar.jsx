@@ -17,6 +17,15 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 0 3em;
+
+&>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+
 `;
 
 
@@ -61,21 +70,23 @@ export default function Navbar() {
             </StyledLogoWrapper>
 
 
-            {user && <p>Hello {user.displayName}</p>}
-            <StyledButtonWrapper>
-                {!user && (<>
-                    <Link to="/login">Login</Link>
-                    <Link to="/signup">Signup</Link>
-                </>)}
-                {user &&
-                    <button
-                        onClick={logout}>
-                        Logout
-                    </button>
+            <div>
+                {user && <p>Hello {user.displayName}</p>}
+                <StyledButtonWrapper>
+                    {!user && (<>
+                        <Link to="/login">Login</Link>
+                        <Link to="/signup">Signup</Link>
+                    </>)}
+                    {user &&
+                        <button
+                            onClick={logout}>
+                            Logout
+                        </button>
 
-                }
+                    }
 
-            </StyledButtonWrapper>
+                </StyledButtonWrapper>
+            </div>
 
 
 
