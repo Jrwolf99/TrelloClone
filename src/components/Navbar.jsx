@@ -22,7 +22,6 @@ padding: 0 3em;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
 }
 
 
@@ -31,14 +30,25 @@ padding: 0 3em;
 
 const StyledLogoWrapper = styled.div`
 margin: .4rem;
-display: flex;
-align-items: center;
-gap: .6rem;
+gap: 10px;
 &>img {
     width: 45px;
     filter: brightness(90%);
 }
 `;
+
+
+const StyledMenuWrapper = styled.div`
+    gap: 30px;
+    &>p {
+        @media (max-width: 900px) {
+        display: none;
+         }
+    }
+   
+
+`;
+
 
 
 const StyledButtonWrapper = styled.div`
@@ -48,7 +58,12 @@ const StyledButtonWrapper = styled.div`
         margin: .5rem .3rem;
         background-color: #ffffff39;
         border-radius: 3px;
+        transition: all .05s;
     }
+    *:hover{
+        background-color: #eaeaea39;
+    }
+
 `;
 
 
@@ -56,21 +71,15 @@ const StyledButtonWrapper = styled.div`
 
 
 export default function Navbar() {
-
-
-
     const { logout } = useLogout();
     const { user } = useAuthContext();
-
     return (
         <StyledNav>
             <StyledLogoWrapper>
                 <img src={logo} alt='coffeehaus logo' />
                 <h2>CoffeeHaus</h2>
             </StyledLogoWrapper>
-
-
-            <div>
+            <StyledMenuWrapper>
                 {user && <p>Hello {user.displayName}</p>}
                 <StyledButtonWrapper>
                     {!user && (<>
@@ -84,9 +93,8 @@ export default function Navbar() {
                         </button>
 
                     }
-
                 </StyledButtonWrapper>
-            </div>
+            </StyledMenuWrapper>
 
 
 

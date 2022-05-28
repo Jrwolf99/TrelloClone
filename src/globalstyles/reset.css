@@ -76,6 +76,17 @@ select {
   font: inherit;
 }
 
+textarea {
+  font: inherit;
+  background-color: inherit;
+  border: none;
+}
+
+textarea:selection {
+  border: red;
+}
+
+
 a, Link{
   text-decoration: none;
   color: inherit;

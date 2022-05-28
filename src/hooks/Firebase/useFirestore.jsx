@@ -1,6 +1,6 @@
-import { collection } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { useReducer, useEffect, useState } from "react";
-import { projectFirestore, timestamp } from "../../firebase/config";
+import { projectFirestore } from "../../firebase/config";
 
 let initialState = {
   document: null,
@@ -13,6 +13,21 @@ const firestoreReducer = (state, action) => {
   switch (action.type) {
     case "IS_PENDING":
       return { isPending: true, error: null, success: false, document: null };
+
+    case "DELETED_DOCUMENT":
+      return {
+        isPending: false,
+        document: null,
+        success: true,
+        error: null,
+      };
+    case "UPDATED_DOCUMENT":
+      return {
+        isPending: false,
+        document: action.payload,
+        success: true,
+        error: null,
+      };
     case "ADDED_DOCUMENT":
       return {
         isPending: false,
@@ -28,12 +43,12 @@ const firestoreReducer = (state, action) => {
   }
 };
 
-export const useFirestore = (collection) => {
+export const useFirestore = (collectionName) => {
   const [response, dispatch] = useReducer(firestoreReducer, initialState);
   const [isCancelled, setIsCancelled] = useState(false);
 
   //collection ref
-  const ref = collection(projectFirestore, collection);
+  const ref = collection(projectFirestore, collectionName);
 
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {
@@ -45,8 +60,8 @@ export const useFirestore = (collection) => {
   const addDocument = async (doc) => {
     dispatch({ type: "IS_PENDING" });
     try {
-      const createdAt = timestamp.fromDate(new Date());
-      const addedDocument = await ref.add({ ...doc, createdAt });
+      const createdAt = Timestamp.fromDate(new Date());
+      const addedDocument = await addDoc(ref, { ...doc, createdAt });
       dispatchIfNotCancelled({
         type: "ADDED_DOCUMENT",
         payload: addedDocument,
@@ -56,8 +71,60 @@ export const useFirestore = (collection) => {
     }
   };
 
+
+  //add a document
+  const updateDocument = async (partialDoc, docId) => {
+
+    dispatch({ type: "IS_PENDING" });
+
+    try {
+      const docRef = doc(ref, docId)
+      const updatedDocument = await updateDoc(docRef, partialDoc);
+      dispatchIfNotCancelled({
+        type: "UPDATED_DOCUMENT",
+        payload: updatedDocument,
+      });
+    } catch (error) {
+      console.log("error: ", error.message)
+      dispatchIfNotCancelled({ type: "ERROR", payload: error.message });
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //delete a document
-  const deleteDocument = async (id) => { };
+  const deleteDocument = async (docId) => {
+
+
+    dispatch({ type: "IS_PENDING" });
+
+    try {
+      const docRef = doc(ref, docId)
+      await deleteDoc(docRef);
+      dispatchIfNotCancelled({
+        type: "DELETED_DOCUMENT"
+      });
+    } catch (error) {
+      console.log("error: ", error.message)
+      dispatchIfNotCancelled({ type: "ERROR", payload: error.message });
+    }
+
+
+
+
+  };
 
   useEffect(() => {
     return () => {
@@ -65,5 +132,5 @@ export const useFirestore = (collection) => {
     };
   }, []);
 
-  return { addDocument, deleteDocument, response };
+  return { addDocument, updateDocument, deleteDocument, response };
 };

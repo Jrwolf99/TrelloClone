@@ -13,7 +13,6 @@ export const useSignup = () => {
 
 
 
-    console.log("displayName:", displayName);
     setError(null);
     setIsPending(true);
 

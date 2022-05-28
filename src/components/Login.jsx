@@ -38,8 +38,13 @@ const StyledForm = styled.form`
          width: 63%;
          border-radius: 3px;
          margin-bottom: 1rem ;
+       transition: .05s all;
+        }
+
+     &>button:nth-of-type(1):hover {
+        background: #ebebeb3c;
+
      }
-    
 
 `;
 const StyledContinue = styled.button`
