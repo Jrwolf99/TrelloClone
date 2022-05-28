@@ -18,6 +18,7 @@ const StyledHeader = styled.div`
 
 
 const StyledTrelloColumn = styled.div`
+    min-width: 263px;
     background-color: #ebecf0;
     border-radius: 3px;
     display: flex;
@@ -44,6 +45,10 @@ export default function TrelloColumn({ title, path, deleteColumn, columnId }) {
 
     const { addDocument, updateDocument, deleteDocument } = useFirestore(`${path}/cards`);
     const { documents } = useCollection(`${path}/cards`);
+
+
+
+
 
 
     return (
