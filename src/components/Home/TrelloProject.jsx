@@ -6,6 +6,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import styled from "styled-components";
 
 import TrelloColumn from './TrelloColumn';
+import { updateDoc } from 'firebase/firestore';
 
 
 const StyledProjectInfo = styled.div`
@@ -24,7 +25,6 @@ const StyledWorkspace = styled.div`
     overflow: auto;
     padding-right: 2em;
     &>button {
-        align-self: center;
         font-size: 2rem;
         font-weight: 100;
         color: white;
@@ -46,8 +46,14 @@ export default function TrelloProject({ project }) {
 
 
     const { user } = useAuthContext();
-    const { addDocument, deleteDocument } = useFirestore(`projects/${project}/columns`);
-    const { documents } = useCollection(`projects/${project}/columns`);
+    const { addDocument, deleteDocument, updateDocument } = useFirestore(`projects/${project}/columns`);
+    const { documents } = useCollection(
+        `projects/${project}/columns`
+        ,
+        ["uid", "==", user.uid],
+        ["createdAt", "asc"]
+
+    );
 
     return (
         <>
@@ -61,13 +67,14 @@ export default function TrelloProject({ project }) {
                                 title={column.title}
                                 path={`projects/${project}/columns/${column.id}`}
                                 deleteColumn={deleteDocument}
+                                updateColumn={updateDocument}
                             />
                         )
                     })
                 }
 
                 <button onClick={() => {
-                    addDocument({ uid: user.uid, title: "New Column" });
+                    addDocument({ uid: user.uid, title: "" });
                 }}>+</button>
             </StyledWorkspace>
         </>

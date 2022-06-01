@@ -5,7 +5,6 @@ import { GrFormClose } from "react-icons/gr"
 
 const StyledTrelloCard = styled.div`
     width: 250px;
-    font-size: .6rem;
     background-color: white;
     margin: .5rem;
     border-radius: 3px;
@@ -36,7 +35,8 @@ const StyledTrelloCard = styled.div`
 const StyledTextArea = styled.textarea`
     resize: none;
     width: 100%;
-    font-size: .6rem;
+    height: 80px;
+    font-size: .85rem;
     padding: 1em;
     background-color: white;
     border-radius: 3px;
@@ -54,6 +54,7 @@ export default function TrelloCard({ cardContent, updateDocument, deleteDocument
                 deleteDocument(cardId);
             }} /></button>
             <StyledTextArea
+                placeholder='New Card'
                 onChange={(e) => updateDocument({ content: e.target.value }, cardId)}
                 value={cardContent}
             ></StyledTextArea>

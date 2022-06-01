@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from "styled-components";
 import { useCollection } from '../../hooks/Firebase/useCollection';
 import { useFirestore } from '../../hooks/Firebase/useFirestore';
 import TrelloCard from './TrelloCard';
 import { FaTrashAlt } from "react-icons/fa"
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 
 
 const StyledHeader = styled.div`
     display: flex;
     justify-content: space-between;
-    &>h2, &>button {
+    &>input, &>button {
         margin: 0.5rem;
         font-size: 1rem;
+    }
+    &>input {
+        background-color: transparent;
+        border: none;
     }
 `;
 
@@ -41,20 +46,28 @@ const StyledTrelloColumn = styled.div`
 
 
 
-export default function TrelloColumn({ title, path, deleteColumn, columnId }) {
+export default function TrelloColumn({ title, path, deleteColumn, updateColumn, columnId }) {
 
+    const { user } = useAuthContext();
     const { addDocument, updateDocument, deleteDocument } = useFirestore(`${path}/cards`);
-    const { documents } = useCollection(`${path}/cards`);
+    const { documents } = useCollection(
+        `${path}/cards`
+        ,
+        ["uid", "==", user.uid]
+        ,
+        ["createdAt", "asc"]
 
-
-
-
+    );
 
 
     return (
         <StyledTrelloColumn>
             <StyledHeader>
-                <h2>{title}</h2>
+                <input contentEditable
+                    placeholder='New Column'
+                    onChange={(e) => updateColumn({ title: e.target.value }, columnId)}
+                    value={title}
+                />
                 <button>
                     <FaTrashAlt onClick={() => {
                         deleteColumn(columnId);
@@ -74,7 +87,7 @@ export default function TrelloColumn({ title, path, deleteColumn, columnId }) {
                 })
             }
             <button onClick={() => {
-                addDocument({ content: "new card!" })
+                addDocument({ uid: user.uid, content: "" });
             }}>+</button>
         </StyledTrelloColumn>
     )

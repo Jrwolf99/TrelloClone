@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useAuthContext } from "../../hooks/useAuthContext"
-import { useCollection } from "../../hooks/Firebase/useCollection"
-import { useFirestore } from "../../hooks/Firebase/useFirestore"
 
 import styled from "styled-components";
 import Dropdown from './Dropdown';
