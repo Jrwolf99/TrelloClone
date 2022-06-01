@@ -5,10 +5,7 @@ import styled from "styled-components";
 import Dropdown from './Dropdown';
 import TrelloProject from './TrelloProject';
 
-import { IoSettingsSharp } from "react-icons/io5";
-
 const StyledProjectMenu = styled.div`
-
 display: flex;
 justify-content: left;
 gap: 10px;
@@ -31,11 +28,11 @@ export default function Home() {
     return (
         <>
             <StyledProjectMenu>
-                <button><IoSettingsSharp /></button>
+                {/* <button>+</button>
                 <Dropdown
                     projects={projects}
                     setSelectedProject={setSelectedProject}
-                    selectedProject={selectedProject} />
+                    selectedProject={selectedProject} /> */}
             </StyledProjectMenu>
             <TrelloProject project={selectedProject} />
         </>
