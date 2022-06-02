@@ -49,14 +49,10 @@ const StyledTrelloColumn = styled.div`
 export default function TrelloColumn({ title, path, deleteColumn, updateColumn, columnId }) {
 
     const { user } = useAuthContext();
+
     const { addDocument, updateDocument, deleteDocument } = useFirestore(`${path}/cards`);
     const { documents } = useCollection(
-        `${path}/cards`
-        ,
-        ["uid", "==", user.uid]
-        ,
-        ["createdAt", "asc"]
-
+        `${path}/cards`, ["uid", "==", user.uid], ["createdAt", "asc"]
     );
 
 
@@ -77,11 +73,11 @@ export default function TrelloColumn({ title, path, deleteColumn, updateColumn, 
             {
                 documents && documents.map((card) => {
                     return (
-                        <TrelloCard key={card.id}
-                            cardId={card.id}
-                            cardContent={card.content}
-                            updateDocument={updateDocument}
-                            deleteDocument={deleteDocument}
+                        <TrelloCard
+                            key={card.id}
+                            card={card}
+                            updateCard={updateDocument}
+                            deleteCard={deleteDocument}
                         />
                     )
                 })

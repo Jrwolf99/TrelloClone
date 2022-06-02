@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from "styled-components";
 import { GrFormClose } from "react-icons/gr"
+import { useTimer } from '../../hooks/useTimer';
 
 
 const StyledTrelloCard = styled.div`
@@ -46,18 +47,42 @@ const StyledTextArea = styled.textarea`
 `;
 
 
-export default function TrelloCard({ cardContent, updateDocument, deleteDocument, cardId }) {
+
+
+
+export default function TrelloCard({ card, updateCard, deleteCard }) {
+
+    const { timerComplete, restartTimer } = useTimer(3000);
+    const [cardState, setCardState] = useState(card.content ? card.content : "");
+
+
+    useEffect(() => {
+        setCardState(() => (card.content))
+    }, [card.content])
+
+    useEffect(() => {
+        if (timerComplete) {
+            updateCard({ content: cardState }, card.id);
+        }
+    }, [timerComplete, card.id, cardState]);
 
     return (
         <StyledTrelloCard>
-            <button><GrFormClose onClick={() => {
-                deleteDocument(cardId);
-            }} /></button>
+            <button>
+                <GrFormClose onClick={() => {
+                    deleteCard(card.id);
+                }} />
+            </button>
+
             <StyledTextArea
                 placeholder='New Card'
-                onChange={(e) => updateDocument({ content: e.target.value }, cardId)}
-                value={cardContent}
-            ></StyledTextArea>
+                onChange={(e) => {
+                    setCardState(e.target.value);
+                    restartTimer();
+                }}
+                value={cardState}
+            >
+            </StyledTextArea>
         </StyledTrelloCard>
 
     )

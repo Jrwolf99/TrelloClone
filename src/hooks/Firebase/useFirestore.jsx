@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { addDoc, collection, deleteDoc, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { useReducer, useEffect, useState } from "react";
 import { projectFirestore } from "../../firebase/config";
@@ -88,7 +89,7 @@ export const useFirestore = (collectionName) => {
       console.log("error: ", error.message)
       dispatchIfNotCancelled({ type: "ERROR", payload: error.message });
     }
-  };
+  }
 
 
 

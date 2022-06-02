@@ -42,17 +42,16 @@ const StyledWorkspace = styled.div`
 
 
 
-export default function TrelloProject({ project }) {
+export default function TrelloProject({ projectID }) {
 
 
     const { user } = useAuthContext();
-    const { addDocument, deleteDocument, updateDocument } = useFirestore(`projects/${project}/columns`);
+    const { addDocument, deleteDocument, updateDocument } = useFirestore(`projects/${projectID}/columns`);
     const { documents } = useCollection(
-        `projects/${project}/columns`
+        `projects/${projectID}/columns`
         ,
         ["uid", "==", user.uid],
         ["createdAt", "asc"]
-
     );
 
     return (
@@ -65,7 +64,7 @@ export default function TrelloProject({ project }) {
                                 key={column.id}
                                 columnId={column.id}
                                 title={column.title}
-                                path={`projects/${project}/columns/${column.id}`}
+                                path={`projects/${projectID}/columns/${column.id}`}
                                 deleteColumn={deleteDocument}
                                 updateColumn={updateDocument}
                             />

@@ -25,6 +25,12 @@ export default function Home() {
     const [projects, setProjects] = useState(["First Project"])
     const [selectedProject, setSelectedProject] = useState(projects[0]);
 
+
+
+
+
+
+
     return (
         <>
             <StyledProjectMenu>
