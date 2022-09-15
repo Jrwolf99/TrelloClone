@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from "styled-components";
 import { GrFormClose } from "react-icons/gr"
-import { useTimer } from '../../hooks/useTimer';
-
+import { useTrelloCard } from './useTrelloCard';
 
 const StyledTrelloCard = styled.div`
     width: 250px;
@@ -32,7 +31,6 @@ const StyledTrelloCard = styled.div`
     }
 `;
 
-
 const StyledTextArea = styled.textarea`
     resize: none;
     width: 100%;
@@ -46,25 +44,9 @@ const StyledTextArea = styled.textarea`
 
 `;
 
-
-
-
-
 export default function TrelloCard({ card, updateCard, deleteCard }) {
 
-    const { timerComplete, restartTimer } = useTimer(3000);
-    const [cardState, setCardState] = useState(card.content ? card.content : "");
-
-
-    useEffect(() => {
-        setCardState(() => (card.content))
-    }, [card.content])
-
-    useEffect(() => {
-        if (timerComplete) {
-            updateCard({ content: cardState }, card.id);
-        }
-    }, [timerComplete, card.id, cardState]);
+    const { cardState, setCardState, restartTimer } = useTrelloCard(card, updateCard);
 
     return (
         <StyledTrelloCard>

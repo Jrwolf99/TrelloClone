@@ -1,12 +1,8 @@
 import React from 'react'
 import styled from "styled-components";
-import { useCollection } from '../../hooks/Firebase/useCollection';
-import { useFirestore } from '../../hooks/Firebase/useFirestore';
 import TrelloCard from './TrelloCard';
 import { FaTrashAlt } from "react-icons/fa"
-import { useAuthContext } from '../../hooks/useAuthContext';
-
-
+import { useTrelloColumn } from './useTrelloColumn';
 
 const StyledHeader = styled.div`
     display: flex;
@@ -20,8 +16,6 @@ const StyledHeader = styled.div`
         border: none;
     }
 `;
-
-
 const StyledTrelloColumn = styled.div`
     min-width: 263px;
     background-color: #ebecf0;
@@ -44,18 +38,9 @@ const StyledTrelloColumn = styled.div`
 
 `;
 
-
-
 export default function TrelloColumn({ title, path, deleteColumn, updateColumn, columnId }) {
 
-    const { user } = useAuthContext();
-
-    const { addDocument, updateDocument, deleteDocument } = useFirestore(`${path}/cards`);
-    const { documents } = useCollection(
-        `${path}/cards`, ["uid", "==", user.uid], ["createdAt", "asc"]
-    );
-
-
+    const { addDocument, updateDocument, deleteDocument, user, documents } = useTrelloColumn(path);
     return (
         <StyledTrelloColumn>
             <StyledHeader>

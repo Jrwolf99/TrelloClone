@@ -1,24 +1,11 @@
-import React, { useState } from 'react'
-import { useCollection } from '../../hooks/Firebase/useCollection';
-import { useFirestore } from '../../hooks/Firebase/useFirestore';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import React from 'react'
 
 import styled from "styled-components";
 
 import TrelloColumn from './TrelloColumn';
-import { updateDoc } from 'firebase/firestore';
+import { useTrelloProject } from './useTrelloProject';
 
 
-const StyledProjectInfo = styled.div`
-    color: white;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    &>h2 {
-        font-size: 1rem;
-        margin: .5rem 2rem;
-    }
-`;
 const StyledWorkspace = styled.div`
     display: flex;
     align-items: flex-start;
@@ -44,15 +31,11 @@ const StyledWorkspace = styled.div`
 
 export default function TrelloProject({ projectID }) {
 
-
-    const { user } = useAuthContext();
-    const { addDocument, deleteDocument, updateDocument } = useFirestore(`projects/${projectID}/columns`);
-    const { documents } = useCollection(
-        `projects/${projectID}/columns`
-        ,
-        ["uid", "==", user.uid],
-        ["createdAt", "asc"]
-    );
+    const { addDocument,
+        deleteDocument,
+        updateDocument,
+        user,
+        documents } = useTrelloProject(projectID);
 
     return (
         <>

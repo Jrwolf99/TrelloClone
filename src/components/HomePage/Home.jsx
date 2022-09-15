@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useAuthContext } from "../../hooks/useAuthContext"
-
-import TrelloProject from './TrelloProject';
-
-
-
+import React, { useState } from 'react'
+import TrelloProject from './TrelloProject/TrelloProject';
 
 export default function Home() {
 
