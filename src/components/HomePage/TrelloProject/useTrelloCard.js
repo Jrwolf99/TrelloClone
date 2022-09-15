@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTimer } from "../../../hooks/useTimer";
+import { useTimer } from "../../../utility/useTimer";
 
 export const useTrelloCard = (card, updateCard) => {
   const { timerComplete, restartTimer } = useTimer(3000);

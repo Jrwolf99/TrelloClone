@@ -8,7 +8,6 @@ export const useTimer = (waitDuration) => {
 
     const [timer, setTimer] = useState(null);
 
-
     const startTimer = () => {
         setTimer(setTimeout(() => {
             setTimerComplete(true);

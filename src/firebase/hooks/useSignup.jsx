@@ -12,7 +12,6 @@ export const useSignup = () => {
   const signup = async (email, password, displayName) => {
     setError(null);
     setIsPending(true);
-
     try {
       //sign the user up
       const res = await createUserWithEmailAndPassword(
