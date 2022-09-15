@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { projectAuth } from "../../firebase/config"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useAuthContext } from "../useAuthContext";
+import { useAuthContext } from "../../context/useAuthContext";
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);
@@ -10,9 +10,6 @@ export const useSignup = () => {
   const { dispatch } = useAuthContext();
 
   const signup = async (email, password, displayName) => {
-
-
-
     setError(null);
     setIsPending(true);
 

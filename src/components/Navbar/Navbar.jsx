@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from "../../assets/images/LOGOsmall.svg"
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { useLogout } from '../../hooks/Firebase/useLogout';
+import { useNavBar } from './useNavBar';
 
 
 const StyledNav = styled.nav`
@@ -66,8 +65,9 @@ const StyledButtonWrapper = styled.div`
 
 
 export default function Navbar() {
-    const { logout } = useLogout();
-    const { user } = useAuthContext();
+
+    const { logout, user } = useNavBar();
+
     return (
         <StyledNav>
             <StyledLogoWrapper>

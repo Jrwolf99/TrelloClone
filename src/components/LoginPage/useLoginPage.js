@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLogin } from "../../hooks/Firebase/useLogin";
+import { useLogin } from "../../firebase/hooks/useLogin";
 
 export const useLoginPage = () => {
   const [email, setEmail] = useState("");

@@ -1,6 +1,6 @@
-import { useCollection } from "../../../hooks/Firebase/useCollection";
-import { useFirestore } from "../../../hooks/Firebase/useFirestore";
-import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useAuthContext } from "../../../context/useAuthContext";
+import { useCollection } from "../../../firebase/hooks/useCollection";
+import { useFirestore } from "../../../firebase/hooks/useFirestore";
 
 export const useTrelloColumn = (path) => {
   const { user } = useAuthContext();

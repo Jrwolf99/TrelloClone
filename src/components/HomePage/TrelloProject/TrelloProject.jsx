@@ -11,6 +11,7 @@ const StyledWorkspace = styled.div`
     align-items: flex-start;
     overflow: auto;
     padding-right: 2em;
+    padding-top: 1em;
     &>button {
         font-size: 2rem;
         font-weight: 100;
@@ -26,8 +27,6 @@ const StyledWorkspace = styled.div`
     }
 
 `;
-
-
 
 export default function TrelloProject({ projectID }) {
 
@@ -54,7 +53,6 @@ export default function TrelloProject({ projectID }) {
                         )
                     })
                 }
-
                 <button onClick={() => {
                     addDocument({ uid: user.uid, title: "" });
                 }}>+</button>

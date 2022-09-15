@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useSignup } from "../../hooks/Firebase/useSignup";
-
+import { useSignup } from "../../firebase/hooks/useSignup";
 
 export const useSignUpPage = () => {
 

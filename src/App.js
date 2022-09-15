@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/HomePage/Home";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
-import { useAuthContext } from "./hooks/useAuthContext";
+import { useAuthContext } from "./context/useAuthContext";
 
 const StyledApp = styled.div`
   height: 100vh;
