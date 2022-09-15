@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { useLogin } from '../../hooks/Firebase/useLogin';
+import { useLoginPage } from './useLoginPage';
 
 const StyledForm = styled.form`
 
@@ -55,17 +55,9 @@ const StyledContinue = styled.button`
          border-radius: 3px;
 `;
 
-
-
 export default function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { login, error, isPending } = useLogin();
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        login(email, password);
-    }
 
+    const { email, password, setEmail, setPassword, handleSubmit, error, isPending, login } = useLoginPage();
     return (
         <StyledForm
             onSubmit={handleSubmit}>

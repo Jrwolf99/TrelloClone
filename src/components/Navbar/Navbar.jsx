@@ -15,14 +15,11 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 0 3em;
-
 &>div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-
 `;
 
 

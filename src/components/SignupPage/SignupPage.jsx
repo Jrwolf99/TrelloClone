@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
 import { useSignup } from '../../hooks/Firebase/useSignup';
+import { useSignUpPage } from './useSignUpPage';
 
 
 
@@ -44,15 +45,17 @@ const StyledForm = styled.form`
 
 export default function SignupPage() {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [displayName, setDisplayName] = useState('');
-    const { signup, error, isPending } = useSignup();
+    const { email,
+        setEmail,
+        password,
+        setPassword,
+        displayName,
+        setDisplayName,
+        error,
+        isPending,
+        handleSubmit } = useSignUpPage();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        signup(email, password, displayName)
-    }
+
 
     return (
         <StyledForm
