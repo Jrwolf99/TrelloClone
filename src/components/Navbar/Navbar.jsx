@@ -1,11 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import logo from "../assets/images/LOGOsmall.svg"
-import { useAuthContext } from '../hooks/useAuthContext';
-import { useLogout } from '../hooks/Firebase/useLogout';
-
-
+import logo from "../../assets/images/LOGOsmall.svg"
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useLogout } from '../../hooks/Firebase/useLogout';
 
 
 const StyledNav = styled.nav`

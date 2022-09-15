@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { useLogin } from '../hooks/Firebase/useLogin';
+import { useSignup } from '../../hooks/Firebase/useSignup';
+
+
 
 const StyledForm = styled.form`
-
     max-width: 360px;
     margin: 60px auto;
     text-align: center;
@@ -31,48 +31,33 @@ const StyledForm = styled.form`
     width: 100%;
      }
 
-     &>button:nth-of-type(1) {
+     &>button {
          color: white;
          background: #ffffff3e;
          padding: .3em 1em;
          width: 63%;
          border-radius: 3px;
          margin-bottom: 1rem ;
-       transition: .05s all;
-        }
-
-     &>button:nth-of-type(1):hover {
-        background: #ebebeb3c;
-
      }
 
 `;
-const StyledContinue = styled.button`
-        display: block;
-        margin: auto;
-        font-size: .6rem;
-         padding: .3em 1em;
-         border-radius: 3px;
-`;
 
-
-
-export default function Login() {
+export default function SignupPage() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, error, isPending } = useLogin();
+    const [displayName, setDisplayName] = useState('');
+    const { signup, error, isPending } = useSignup();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        login(email, password);
-
+        signup(email, password, displayName)
     }
 
     return (
         <StyledForm
             onSubmit={handleSubmit}>
-            <h2>Login</h2>
+            <h2>Sign Up</h2>
             <label>
                 <input type="email"
                     onChange={(e) => {
@@ -91,19 +76,20 @@ export default function Login() {
                     placeholder="Password"
                 />
             </label>
+
+            <label>
+                <input type="text"
+                    onChange={(e) => {
+                        setDisplayName(e.target.value);
+                    }}
+                    value={displayName}
+                    placeholder="Display Name"
+                />
+            </label>
+
             {(!isPending) && <button>Submit</button>}
             {(isPending) && <button disabled>Loading...</button>}
             {error && <p>{error}</p>}
-
-            <StyledContinue to="/" type='button'
-                onClick={
-                    () => {
-                        login("demo@demo.com", 123456);
-                    }
-                }
-
-            >Continue as Guest</StyledContinue>
-
 
         </StyledForm>
     )

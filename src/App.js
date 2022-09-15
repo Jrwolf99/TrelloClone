@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-
-import Navbar from "./components/Navbar";
-
+import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./components/Home/Home";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import Home from "./components/HomePage/Home";
+import LoginPage from "./components/LoginPage/LoginPage";
+import SignupPage from "./components/SignupPage/SignupPage";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 const StyledApp = styled.div`
@@ -33,13 +31,16 @@ export default function App() {
           <Route path="/" element={user ? <Home /> : <Navigate to="login" />} />
           <Route
             path="login"
-            element={user ? <Navigate to="/" /> : <Login />}
+            element={user ? <Navigate to="/" /> : <LoginPage />}
           />
           <Route
             path="signup"
-            element={user ? <Navigate to="/" /> : <Signup />}
+            element={user ? <Navigate to="/" /> : <SignupPage />}
           />
-          <Route path="*" element={user ? <Navigate to="/" /> : <Login />} />
+          <Route
+            path="*"
+            element={user ? <Navigate to="/" /> : <LoginPage />}
+          />
         </Routes>
       </StyledApp>
     )
