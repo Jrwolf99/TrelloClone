@@ -14,6 +14,7 @@ const StyledForm = styled.form`
 
     &>h2 {
         color: white;
+        font-size: 2rem;
     }
     &>p {
         color: #580000;
@@ -26,7 +27,7 @@ const StyledForm = styled.form`
     }
     &> input {
     padding: 8px 6px;
-    font-size: 1em;
+    font-size: 2em;
     color: #777;
     width: 100%;
      }
@@ -50,9 +51,16 @@ const StyledForm = styled.form`
 const StyledContinue = styled.button`
         display: block;
         margin: auto;
-        font-size: .6rem;
-         padding: .3em 1em;
-         border-radius: 3px;
+        font-size: 1rem;
+        padding: .3em 1em;
+        border-radius: 3px;
+        color: white;
+
+        &:hover {
+            background-color: #ffffff16;
+        }
+
+
 `;
 
 export default function LoginPage() {
