@@ -1,10 +1,18 @@
 import { collection, onSnapshot, query, where, orderBy } from "firebase/firestore";
 import { useEffect, useState, useRef } from "react";
-import { projectFirestore } from "../config";
+import { projectFirestore } from "../firebase_config/config";
 
+
+
+
+//USECOLLECTION: Use this hook to return the documents as a list 
+//from whatever collection in firestore. you can also query them,
+// and order them based on any fields that the documents have.
 export const useCollection = (collectionName, _q, _ordBy) => {
     const [documents, setDocuments] = useState(null);
     const [error, setError] = useState(null);
+
+
 
     //useRef is used to avoid the infinite loop that
     // reference types make when they are dependencies
@@ -22,7 +30,6 @@ export const useCollection = (collectionName, _q, _ordBy) => {
             } catch (error) {
                 console.log(error.message)
             }
-
         }
 
 

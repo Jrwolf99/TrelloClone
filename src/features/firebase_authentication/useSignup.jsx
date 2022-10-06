@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import { projectAuth } from "../../firebase/config"
+import { projectAuth } from "../firebase_config/config"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useAuthContext } from "../../context/useAuthContext";
+import { useAuthContext } from "../../context/authentication/useAuthContext";
 
+
+
+//USESIGNUP: Use this hook to access the firebase signup
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);

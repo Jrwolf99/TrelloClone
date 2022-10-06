@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSignup } from "../../firebase/hooks/useSignup";
+import { useSignup } from "../../features/firebase_authentication/useSignup";
 
 export const useSignUpPage = () => {
 

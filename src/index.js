@@ -4,8 +4,8 @@ import App from "./App";
 import "./globalstyles/reset.css";
 import "./globalstyles/index.css";
 
-import { AuthContextProvider } from "./context/AuthContext";
 import { BrowserRouter } from "react-router-dom";
+import { AuthContextProvider } from "./context/authentication/AuthContext";
 
 ReactDOM.render(
   <React.StrictMode>

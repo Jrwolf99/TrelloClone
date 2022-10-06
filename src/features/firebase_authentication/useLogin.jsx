@@ -1,9 +1,10 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
-import { useAuthContext } from "../../context/useAuthContext";
-import { projectAuth } from "../../firebase/config"
+import { useAuthContext } from "../../context/authentication/useAuthContext";
+import { projectAuth } from "../firebase_config/config";
 
 
+//USELOGIN: use this hook to access the firebase login.
 export const useLogin = () => {
     const [isCancelled, setIsCancelled] = useState(false);
     const [error, setError] = useState(null);

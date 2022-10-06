@@ -1,5 +1,5 @@
-import { useAuthContext } from "../../context/useAuthContext";
-import { useLogout } from "../../firebase/hooks/useLogout";
+import { useAuthContext } from "../../context/authentication/useAuthContext";
+import { useLogout } from "../../features/firebase_authentication/useLogout";
 
 export const useNavBar = () => {
   const { logout } = useLogout();

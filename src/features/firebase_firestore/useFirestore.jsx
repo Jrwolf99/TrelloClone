@@ -1,7 +1,6 @@
-import { useCallback } from "react";
 import { addDoc, collection, deleteDoc, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { useReducer, useEffect, useState } from "react";
-import { projectFirestore } from "../../firebase/config";
+import { projectFirestore } from "../firebase_config/config";
 
 let initialState = {
   document: null,
@@ -44,13 +43,14 @@ const firestoreReducer = (state, action) => {
   }
 };
 
+
+//USEFIRESTORE: Use this hook to add, delete, or update an existing collection.
 export const useFirestore = (collectionName) => {
   const [response, dispatch] = useReducer(firestoreReducer, initialState);
   const [isCancelled, setIsCancelled] = useState(false);
 
   //collection ref
   const ref = collection(projectFirestore, collectionName);
-
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {
       dispatch(action);
@@ -72,12 +72,9 @@ export const useFirestore = (collectionName) => {
     }
   };
 
-
   //add a document
   const updateDocument = async (partialDoc, docId) => {
-
     dispatch({ type: "IS_PENDING" });
-
     try {
       const docRef = doc(ref, docId)
       const updatedDocument = await updateDoc(docRef, partialDoc);
@@ -92,25 +89,9 @@ export const useFirestore = (collectionName) => {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   //delete a document
   const deleteDocument = async (docId) => {
-
-
     dispatch({ type: "IS_PENDING" });
-
     try {
       const docRef = doc(ref, docId)
       await deleteDoc(docRef);
@@ -121,8 +102,6 @@ export const useFirestore = (collectionName) => {
       console.log("error: ", error.message)
       dispatchIfNotCancelled({ type: "ERROR", payload: error.message });
     }
-
-
 
 
   };

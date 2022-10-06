@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./components/HomePage/Home";
-import LoginPage from "./components/LoginPage/LoginPage";
-import SignupPage from "./components/SignupPage/SignupPage";
-import { useAuthContext } from "./context/useAuthContext";
+import { useAuthContext } from "./context/authentication/useAuthContext";
+import Home from "./pages/HomePage/Home";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import SignupPage from "./pages/SignupPage/SignupPage";
 
 const StyledApp = styled.div`
   height: 100vh;
