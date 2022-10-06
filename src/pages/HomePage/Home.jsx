@@ -8,6 +8,12 @@ export default function Home() {
 
     const { user } = useAuthContext();
     const { userprojects, addProject } = useAccessDatabase(user);
+
+
+
+
+
+
     return (
         <>
             <ProjectStoreProvider>

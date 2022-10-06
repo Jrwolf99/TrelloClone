@@ -68,6 +68,7 @@ const StyledCards = styled.div`
 export const TrelloColumn = observer(({ columnid }) => {
     const store = useContext(ProjectStoreContext);
     const { storeFunctions } = useProjectStoreFunctions(store);
+
     return (
         <StyledTrelloColumn>
             <StyledDragBar>

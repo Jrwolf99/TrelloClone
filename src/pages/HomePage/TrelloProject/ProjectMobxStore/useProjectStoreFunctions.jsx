@@ -1,8 +1,12 @@
 import uuid from 'react-uuid';
+import { useAuthContext } from '../../../../context/authentication/useAuthContext';
+import { useAccessDatabase } from '../../../../hooks/useAccessDatabase';
 
 export const useProjectStoreFunctions = (store) => {
 
-    console.log("STORE: ", store);
+    const { user } = useAuthContext();
+    const { refreshFireContent } = useAccessDatabase(user);
+
     const storeFunctions = {
         addColumn: () => {
             store.projectColumnsList.push({
@@ -10,6 +14,7 @@ export const useProjectStoreFunctions = (store) => {
                 title: "",
                 cardsList: [{ id: uuid(), text: "hi!" }],
             });
+            refreshFireContent(store.projectColumnsList);
         },
 
         deleteColumn: (columnid) => {
@@ -18,6 +23,7 @@ export const useProjectStoreFunctions = (store) => {
                     store.projectColumnsList.splice(index, 1);
                 }
             });
+            refreshFireContent(store.projectColumnsList);
         },
 
         setColumnTitle: (columnid, newTitle) => {
@@ -26,6 +32,7 @@ export const useProjectStoreFunctions = (store) => {
                     column.title = newTitle;
                 }
             });
+            refreshFireContent(store.projectColumnsList);
         },
 
         getColumnTitle: (columnid) => {
@@ -47,10 +54,10 @@ export const useProjectStoreFunctions = (store) => {
                     });
                 }
             });
+            refreshFireContent(store.projectColumnsList);
         },
 
         deleteCard: (cardid) => {
-            console.log("deletingcard...");
             store.projectColumnsList.forEach((column, colIndex) => {
                 column.cardsList.forEach((card, cardIndex) => {
                     if (cardid === card.id) {
@@ -58,6 +65,7 @@ export const useProjectStoreFunctions = (store) => {
                     }
                 });
             });
+            refreshFireContent(store.projectColumnsList);
         },
 
         setCardText: (cardid, newText) => {
@@ -68,6 +76,7 @@ export const useProjectStoreFunctions = (store) => {
                     }
                 });
             });
+            refreshFireContent(store.projectColumnsList);
         },
 
         getCardText: (cardid) => {
@@ -94,12 +103,14 @@ export const useProjectStoreFunctions = (store) => {
                     );
                 }
             });
+            refreshFireContent(store.projectColumnsList);
         },
 
         moveWholeColumn: (sourceIndex, destIndex) => {
             let myCol = store.projectColumnsList[sourceIndex];
             store.projectColumnsList.splice(sourceIndex, 1);
             store.projectColumnsList.splice(destIndex, 0, myCol);
+            refreshFireContent(store.projectColumnsList);
         },
 
         moveCardToDiffColumn: (
@@ -111,7 +122,6 @@ export const useProjectStoreFunctions = (store) => {
             let myCard;
             store.projectColumnsList.forEach((column, colIndex) => {
                 if (sourceColumnid === column.id) {
-                    console.log("deleting card from old column");
                     myCard = column.cardsList[sourceIndex];
                     store.projectColumnsList[colIndex].cardsList.splice(sourceIndex, 1);
                 }
@@ -119,7 +129,6 @@ export const useProjectStoreFunctions = (store) => {
 
             store.projectColumnsList.forEach((column, colIndex) => {
                 if (destColumnid === column.id) {
-                    console.log("adding card to new col");
                     store.projectColumnsList[colIndex].cardsList.splice(
                         destIndex,
                         0,
@@ -127,9 +136,8 @@ export const useProjectStoreFunctions = (store) => {
                     );
                 }
             });
+            refreshFireContent(store.projectColumnsList);
         },
-
-
 
 
     }
