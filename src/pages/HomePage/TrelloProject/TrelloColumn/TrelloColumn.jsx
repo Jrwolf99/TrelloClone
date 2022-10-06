@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa"
 import { TbChevronsUpLeft } from "react-icons/tb"
 import { CardsList } from './CardsList';
+import { useProjectStoreFunctions } from '../ProjectMobxStore/useProjectStoreFunctions';
 
 const StyledTrelloColumn = styled.div`
     min-width: 263px;
@@ -65,7 +66,8 @@ const StyledCards = styled.div`
 
 
 export const TrelloColumn = observer(({ columnid }) => {
-    const store = useContext(ProjectStoreContext)
+    const store = useContext(ProjectStoreContext);
+    const { storeFunctions } = useProjectStoreFunctions(store);
     return (
         <StyledTrelloColumn>
             <StyledDragBar>
@@ -74,11 +76,11 @@ export const TrelloColumn = observer(({ columnid }) => {
             <StyledHeader>
                 <input contentEditable
                     placeholder='New Column'
-                    onChange={(e) => store.setColumnTitle(columnid, e.target.value)}
-                    value={store.getColumnTitle(columnid)}
+                    onChange={(e) => storeFunctions.setColumnTitle(columnid, e.target.value)}
+                    value={storeFunctions.getColumnTitle(columnid)}
                 />
                 <button>
-                    <FaTrashAlt onClick={() => store.deleteColumn(columnid)} />
+                    <FaTrashAlt onClick={() => storeFunctions.deleteColumn(columnid)} />
                 </button>
             </StyledHeader>
             <StyledCards>
@@ -92,7 +94,7 @@ export const TrelloColumn = observer(({ columnid }) => {
                     return <span key={i} style={{ display: "none" }}></span>;
                 })}
             </StyledCards>
-            <button onClick={() => store.addCard(columnid)}>+</button>
+            <button onClick={() => storeFunctions.addCard(columnid)}>+</button>
         </StyledTrelloColumn >
     )
 })

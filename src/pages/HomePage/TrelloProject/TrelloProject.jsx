@@ -7,6 +7,10 @@ import { useContext } from 'react';
 import { ProjectStoreContext } from './ProjectMobxStore/ProjectStoreContext';
 import { TrelloColumn } from './TrelloColumn/TrelloColumn';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { autorun } from 'mobx';
+import { useAuthContext } from '../../../context/authentication/useAuthContext';
+import { useAccessDatabase } from '../../../hooks/useAccessDatabase';
+import { useProjectStoreFunctions } from './ProjectMobxStore/useProjectStoreFunctions';
 
 const StyledWorkspace = styled.div`
     display: flex;
@@ -30,7 +34,16 @@ const StyledWorkspace = styled.div`
 
 `;
 export const TrelloProject = observer(() => {
+    const { user } = useAuthContext();
+    const { refreshFireContent } = useAccessDatabase(user);
     const store = useContext(ProjectStoreContext);
+    const { storeFunctions } = useProjectStoreFunctions(store);
+
+    // autorun(() => {
+    //     refreshFireContent(store);
+    // });
+
+
     return (
         <StyledWorkspace>
             <DragDropContext
@@ -41,15 +54,15 @@ export const TrelloProject = observer(() => {
                     }
                     if (destination.droppableId === 'project') {
                         console.log("moving whole columns!");
-                        store.moveWholeColumn(source.index, destination.index);
+                        storeFunctions.moveWholeColumn(source.index, destination.index);
                     }
                     else if (destination.droppableId === source.droppableId) {
                         console.log("in same column!");
-                        store.moveCardInColumn(source.droppableId, source.index, destination.index);
+                        storeFunctions.moveCardInColumn(source.droppableId, source.index, destination.index);
                     }
                     else {
                         console.log("moving card to different column!");
-                        store.moveCardToDiffColumn(
+                        storeFunctions.moveCardToDiffColumn(
                             source.droppableId,
                             source.index,
                             destination.droppableId,
@@ -79,7 +92,7 @@ export const TrelloProject = observer(() => {
                     }
                 </DropContainer>
             </DragDropContext>
-            <button onClick={store.addColumn}>+</button>
+            <button onClick={storeFunctions.addColumn}>+</button>
         </StyledWorkspace >
     )
 });

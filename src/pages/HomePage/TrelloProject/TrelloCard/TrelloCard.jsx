@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { GrFormClose } from "react-icons/gr"
 import { RiDragMoveFill } from 'react-icons/ri';
 import { observer } from 'mobx-react-lite';
+import { useProjectStoreFunctions } from '../ProjectMobxStore/useProjectStoreFunctions';
 import { useContext } from 'react';
 import { ProjectStoreContext } from '../ProjectMobxStore/ProjectStoreContext';
 
@@ -62,20 +63,22 @@ const StyledTextArea = styled.textarea`
 export const TrelloCard = observer(({ cardid }) => {
 
     const store = useContext(ProjectStoreContext);
+    const { storeFunctions } = useProjectStoreFunctions(store);
+
     return (
         <StyledTrelloCard>
             <StyledCardMenu>
                 <RiDragMoveFill />
                 <button>
-                    <GrFormClose onClick={() => store.deleteCard(cardid)} />
+                    <GrFormClose onClick={() => storeFunctions.deleteCard(cardid)} />
                 </button>
             </StyledCardMenu>
             <StyledTextArea
                 placeholder='New Card'
                 onChange={(e) => {
-                    store.setCardText(cardid, e.target.value)
+                    storeFunctions.setCardText(cardid, e.target.value)
                 }}
-                value={store.getCardText(cardid)}
+                value={storeFunctions.getCardText(cardid)}
             >
             </StyledTextArea>
         </StyledTrelloCard >
