@@ -19,6 +19,10 @@ const StyledApp = styled.div`
     #e1306c,
     #fd1d1d
   );
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
 `;
 
 export default function App() {

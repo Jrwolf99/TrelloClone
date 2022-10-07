@@ -86,7 +86,7 @@ export const useFirestore = (collectionName) => {
       console.log("error: ", error.message)
       dispatchIfNotCancelled({ type: "ERROR", payload: error.message });
     }
-  }
+  };
 
   //delete a document
   const deleteDocument = async (docId) => {

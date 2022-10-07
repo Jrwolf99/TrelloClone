@@ -12,7 +12,7 @@ export const useProjectStoreFunctions = (store) => {
             store.projectColumnsList.push({
                 id: uuid(),
                 title: "",
-                cardsList: [{ id: uuid(), text: "hi!" }],
+                cardsList: [{ id: uuid(), text: "" }],
             });
             refreshFireContent(store.projectColumnsList);
         },

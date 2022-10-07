@@ -3,7 +3,6 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import { useAuthContext } from "../context/authentication/useAuthContext";
 import { useCollection } from "../features/firebase_firestore/useCollection";
 import { useFirestore } from "../features/firebase_firestore/useFirestore";
-import { ProjectStoreContext } from "../pages/HomePage/TrelloProject/ProjectMobxStore/ProjectStoreContext";
 import { useTimer } from "./useTimer";
 
 export const useAccessDatabase = (user) => {
@@ -16,6 +15,7 @@ export const useAccessDatabase = (user) => {
     user.uid,
   ]);
 
+  //TODO: Should be its own function somewhere --------------
   const { timerComplete, restartTimer } = useTimer(2000);
   const [tempContent, setTempContent] = useState(null);
   const refreshFireContent = (newContent) => {
@@ -34,10 +34,24 @@ export const useAccessDatabase = (user) => {
       console.log("refreshing");
     }
   }, [timerComplete]);
+  //--------------------------------------------------------------
+
+  const isUserProjectLoaded =
+    userprojects && Object.keys(userprojects).length > 0;
+
+  const getProjectContent = () => {
+    let myProjectContent;
+    if (isUserProjectLoaded) {
+      myProjectContent = Object.values(userprojects)[0].content;
+    }
+    return Object.values(myProjectContent);
+  };
 
   return {
     userprojects,
     addProject,
     refreshFireContent,
+    isUserProjectLoaded,
+    getProjectContent,
   };
 };
